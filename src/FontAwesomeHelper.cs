@@ -1,5 +1,4 @@
 ﻿using FontAwesome.WPF.Models;
-using System;
 using System.Net.Http;
 using System.Text.Json;
 using System.Windows.Media;
@@ -11,8 +10,8 @@ using Icons = Dictionary<string, IconModel>;
 public static class FontAwesomeHelper
 {
     private static readonly int[] _supportedVersions = { 5, 6 };
-    private static Icons _source = GetIconsFromSource( // Default to v6
-        "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/metadata/icons.json").Result;
+    private static Icons _source = GetIconsFromSourceSync( // Default to v6
+        "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/metadata/icons.json");
 
     /// <summary>
     /// Set the FontAwesome source version:<br/>
@@ -52,5 +51,14 @@ public static class FontAwesomeHelper
         using HttpClient client = new();
         using Stream stream = await client.GetStreamAsync(url);
         return (await JsonSerializer.DeserializeAsync<Icons>(stream))!;
+    }
+
+    // Should only be used for
+    // the field initialization
+    private static Icons GetIconsFromSourceSync(string url)
+    {
+        using HttpClient client = new();
+        using Stream stream = client.GetStreamAsync(url).Result;
+        return JsonSerializer.Deserialize<Icons>(stream)!;
     }
 }

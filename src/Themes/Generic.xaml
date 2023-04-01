@@ -1,0 +1,29 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:converters="clr-namespace:FontAwesome.WPF.Converters"
+                    xmlns:local="clr-namespace:FontAwesome.WPF">
+
+    <Style TargetType="{x:Type local:Icon}">
+        <Style.Resources>
+            <converters:DivideValue x:Key="DivideValue" />
+        </Style.Resources>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:Icon}">
+                    <Border x:Name="PART_Border"
+                            Padding="{TemplateBinding Padding}"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="{TemplateBinding CornerRadius}">
+                        <Viewbox>
+                            <Path x:Name="PART_Path"
+                                  Effect="{TemplateBinding Effect}"
+                                  Fill="{TemplateBinding Foreground}"
+                                  Stroke="{TemplateBinding BorderBrush}"
+                                  StrokeThickness="{TemplateBinding BorderThickness}" />
+                        </Viewbox>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

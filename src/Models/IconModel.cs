@@ -5,16 +5,16 @@ namespace FontAwesome.WPF.Models;
 public class IconModel
 {
     public string this[string brand] {
-		get => Svg[brand].Path;
-	}
+        get => Svg[brand].Path;
+    }
 
-	[JsonPropertyName("unicode")]
+    [JsonPropertyName("unicode")]
     public required string Unicode { get; set; }
 
-	[JsonPropertyName("svg")]
+    [JsonPropertyName("svg")]
     public required Dictionary<string, SvgModel> Svg { get; set; }
 
-	[JsonPropertyName("styles")]
+    [JsonPropertyName("styles")]
     public required List<string> Styles { get; set; }
 
     public class SvgModel

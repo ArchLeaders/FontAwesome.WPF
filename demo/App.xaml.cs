@@ -6,8 +6,5 @@ namespace FontAwesome.WPF.Demo;
 /// </summary>
 public partial class App : Application
 {
-    public App()
-    {
-        FontAwesomeHelper.SetVersion(6).Wait();
-    }
+
 }

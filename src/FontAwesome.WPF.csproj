@@ -7,9 +7,6 @@
     <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\autogen\FontAwesome.Generate.csproj" OutputItemType="Analyzer" />
-  </ItemGroup>
-  <ItemGroup>
     <Using Include="System.IO" />
   </ItemGroup>
 </Project>

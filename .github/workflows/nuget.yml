@@ -40,4 +40,4 @@ jobs:
         run: dotnet pack src\${{ env.csproj }}.csproj --no-restore -c Release -p:PackageVersion=${{ steps.version.outputs.version-without-v }} --output ${{ env.build }}
 
       - name: "Push package"
-        run: dotnet nuget push ${{ env.build }}\*.nupkg -k ${{ secrets.nuget_auth }} -s ${{ env.nuget }}
+        run: dotnet nuget push ${{ env.build }}\*.${{ steps.version.outputs.version-without-v }}.nupkg -k ${{ secrets.nuget_auth }} -s ${{ env.nuget }}

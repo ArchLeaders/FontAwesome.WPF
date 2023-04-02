@@ -15,7 +15,7 @@ jobs:
 
     env:
       csproj: "FontAwesome.WPF"
-      build: "${{ github.workspace }}/build"
+      build: "${{ github.workspace }}\\build"
 
     steps:
       - name: "Checkout"
@@ -27,17 +27,17 @@ jobs:
           dotnet-version: "7.0.x"
 
       - name: "Restore packages"
-        run: dotnet restore src/${{ env.csproj }}.csproj
+        run: dotnet restore src\${{ env.csproj }}.csproj
 
       - name: "Build project"
-        run: dotnet build src/${{ env.csproj }}.csproj --no-restore -c Release
+        run: dotnet build src\${{ env.csproj }}.csproj --no-restore -c Release
 
       - name: "Get Version"
         id: version
         uses: battila7/get-version-action@v2
 
       - name: "Pack project"
-        run: dotnet pack src/${{ env.csproj }}.csproj --no-restore -c Release -p:PackageVersion=${{ steps.version.outputs.version-without-v }} --output ${{ env.build }}
+        run: dotnet pack src\${{ env.csproj }}.csproj --no-restore -c Release -p:PackageVersion=${{ steps.version.outputs.version-without-v }} --output ${{ env.build }}
 
       - name: "Push package"
-        run: dotnet nuget push ${{ env.build }}/*.nupkg -k ${{ secrets.nuget_auth }} -s ${{ env.nuget }}
+        run: dotnet nuget push ${{ env.build }}\*.nupkg -k ${{ secrets.nuget_auth }} -s ${{ env.nuget }}

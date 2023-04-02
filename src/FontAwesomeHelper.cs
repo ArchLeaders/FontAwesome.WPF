@@ -10,23 +10,7 @@ using Icons = Dictionary<string, IconModel>;
 public static class FontAwesomeHelper
 {
     private static readonly int[] _supportedVersions = { 5, 6 };
-    private static Icons _source = GetIconsFromSourceSync( // Default to v6
-        "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/metadata/icons.json");
-
-    /// <summary>
-    /// Set the FontAwesome source version:<br/>
-    /// Supported versions: <b>5, 6</b>
-    /// </summary>
-    /// <param name="version"></param>
-    public static async Task SetVersion(int version = 6)
-    {
-        if (!_supportedVersions.Contains(version)) {
-            throw new ArgumentException("FontAwesome: Invalid version specified during initialization", nameof(version));
-        }
-
-        _source = await GetIconsFromSource(
-            $"https://raw.githubusercontent.com/FortAwesome/Font-Awesome/{version}.x/metadata/icons.json");
-    }
+    private static Icons _source = LoadEmbeded();
 
     public static bool TryGetIcon(string name, string type, out Geometry data, bool throwIfNotFound = true)
     {
@@ -46,19 +30,35 @@ public static class FontAwesomeHelper
         return false;
     }
 
-    private static async Task<Icons> GetIconsFromSource(string url)
+    /// <summary>
+    /// Set the FontAwesome online source version:<br/>
+    /// Supported versions: <b>5, 6</b><br/>
+    /// <b>Note:</b> an internet connection is required to set the version
+    /// </summary>
+    /// <param name="version"></param>
+    public static async Task SetVersion(int version = 6)
+    {
+        if (!_supportedVersions.Contains(version)) {
+            throw new ArgumentException("FontAwesome: Invalid version specified during initialization", nameof(version));
+        }
+
+        await LoadFromUrl($"https://raw.githubusercontent.com/FortAwesome/Font-Awesome/{version}.x/metadata/icons.json");
+    }
+
+    public static async Task LoadFromUrl(string url)
     {
         using HttpClient client = new();
         using Stream stream = await client.GetStreamAsync(url);
-        return (await JsonSerializer.DeserializeAsync<Icons>(stream))!;
+        _source = (await JsonSerializer.DeserializeAsync<Icons>(stream))!;
     }
 
-    // Should only be used for
-    // the field initialization
-    private static Icons GetIconsFromSourceSync(string url)
+    public static void LoadFromFile(string path) => LoadFromData(File.ReadAllBytes(path).AsSpan());
+    public static void LoadFromData(Span<byte> data) => _source = JsonSerializer.Deserialize<Icons>(data)!;
+    public static void LoadFromStream(Stream stream) => _source = JsonSerializer.Deserialize<Icons>(stream)!;
+
+    private static Icons LoadEmbeded()
     {
-        using HttpClient client = new();
-        using Stream stream = client.GetStreamAsync(url).Result;
+        Stream stream = typeof(FontAwesomeHelper).Assembly.GetManifestResourceStream("FontAwesome.WPF.Data.Icons.json")!;
         return JsonSerializer.Deserialize<Icons>(stream)!;
     }
 }

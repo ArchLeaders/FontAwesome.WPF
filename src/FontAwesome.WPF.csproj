@@ -7,6 +7,12 @@
     <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Data\icons.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Data\Icons.json" />
+  </ItemGroup>
+  <ItemGroup>
     <Using Include="System.IO" />
   </ItemGroup>
 </Project>

@@ -5,12 +5,30 @@
     <UseWPF>true</UseWPF>
     <ImplicitUsings>true</ImplicitUsings>
     <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+    <Authors>ArchLeaders</Authors>
+    <PackageId>$(Authors).$(AssemblyName)</PackageId>
+    <Title>Font Awesome WPF</Title>
+    <Description>Font Awesome icons for WPF</Description>
+    <Copyright>(c) Arch Leaders 2023</Copyright>
+    <PackageProjectUrl>https://github.com/ArchLeaders/FontAwesome.WPF</PackageProjectUrl>
+    <PackageReadmeFile>ReadMe.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/ArchLeaders/FontAwesome.WPF</RepositoryUrl>
+    <PackageTags>wpf;font-awesome;icons</PackageTags>
+    <PackageLicenseExpression> AGPL-3.0-or-later</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <IncludeSymbols>True</IncludeSymbols>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Data\icons.json" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Data\Icons.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\ReadMe.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Using Include="System.IO" />

@@ -12,8 +12,12 @@ public static class FontAwesomeHelper
     private static readonly int[] _supportedVersions = { 5, 6 };
     private static Icons _source = LoadEmbeded();
 
-    public static bool TryGetIcon(string name, string type, out Geometry data, bool throwIfNotFound = true)
+    public static bool TryGetIcon(string? name, string? type, out Geometry data, bool throwIfNotFound = true)
     {
+        if (name is null || type is null) {
+            goto End;
+        }
+
         if (_source.TryGetValue(name.ToLower(), out IconModel? icon) == true) {
             if (!icon.Styles.Contains(type)) {
                 type = icon.Styles[0];
@@ -26,6 +30,7 @@ public static class FontAwesomeHelper
             throw new KeyNotFoundException($"The icon '{name}' does not exists");
         }
 
+        End:
         data = Geometry.Empty;
         return false;
     }

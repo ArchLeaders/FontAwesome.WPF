@@ -3,17 +3,24 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:converters="clr-namespace:FontAwesome.WPF.Converters;assembly=FontAwesome.WPF"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:fa="clr-namespace:FontAwesome.WPF;assembly=FontAwesome.WPF"
+        xmlns:local="clr-namespace:FontAwesome.WPF.Demo"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         Title="MainWindow"
         Width="800"
         Height="450"
+        Background="#1E1E1E"
+        Foreground="#7160e8"
         mc:Ignorable="d">
     <Window.Resources>
         <converters:IconConverter x:Key="IconConverter" />
     </Window.Resources>
+    <Window.DataContext>
+        <local:MainWindowViewModel />
+    </Window.DataContext>
     <Grid>
         <Menu VerticalAlignment="Top">
-            <MenuItem Header="File">
+            <MenuItem Height="24" Header="Menu _Icons">
                 <!--  Icon without binding  -->
                 <MenuItem Header="Home" Icon="{Binding Converter={StaticResource IconConverter}, ConverterParameter=house}" />
 
@@ -21,5 +28,34 @@
                 <MenuItem Header="GitHub" Icon="{Binding Icon, Converter={StaticResource IconConverter}}" />
             </MenuItem>
         </Menu>
+
+        <StackPanel HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
+            <!--  Icon with binding  -->
+            <fa:Icon Width="24"
+                     Height="24"
+                     Margin="4"
+                     IconName="{Binding Icon}" />
+
+            <!--  Icon without binding  -->
+            <fa:Icon Width="24"
+                     Height="24"
+                     Margin="4"
+                     IconName="house"
+                     IconType="solid" />
+
+            <!--  Icon with IconType  -->
+            <fa:Icon Width="24"
+                     Height="24"
+                     Margin="4"
+                     IconName="font-awesome"
+                     IconType="solid" />
+            <fa:Icon Width="24"
+                     Height="24"
+                     Margin="4"
+                     IconName="font-awesome"
+                     IconType="regular" />
+        </StackPanel>
     </Grid>
 </Window>

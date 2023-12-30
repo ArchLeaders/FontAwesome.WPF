@@ -10,7 +10,7 @@ A simple control for rendering [FontAwesome](https://fontawesome.com/) icons in 
 <Window x:Class="FontAwesome.WPF.Demo.ShellView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:fa="http://schemas.fontawesome.io/icons/"
+        xmlns:fa="clr-namespace:FontAwesome.WPF;assembly=FontAwesome.WPF"
         Title="Font Awesome WPF Demo" Height="300" Width="300">
     <Grid Margin="20">
         <fa:Icon IconName="font-awesome"
